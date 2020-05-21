@@ -14,7 +14,7 @@ Check those links in case you have issues with this step:
 
 - official RStudio website: https://rstudio.com/products/rstudio/download/
   
-#### 2. Download the tool from https://github.com/ramoncierco7/hORMdb. 
+#### 2. Download the tool from https://github.com/lmc-uab/hORMdb. 
 
 Remember to decompress the folder.
 
