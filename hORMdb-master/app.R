@@ -34,12 +34,15 @@ import_library('dplyr');
 import_library('feather')
 
 #Read file
-if(file.exists("374_hOR_v21_07022020.feather") == FALSE){
-  unzip("374_hOR_v21_07022020.zip")
-}
-if(file.exists("374_hOR_v21_07022020.feather") == TRUE){
-  file <- read_feather("374_hOR_v21_07022020.feather")
-}
+#if(file.exists("378_hOR_v21_23112020.feather") == FALSE){
+#  unzip("378_hOR_v21_23112020.zip")
+#}
+#if(file.exists("378_hOR_v21.feather") == TRUE){
+#  file <- read_feather("378_hOR_v21.feather")
+#}
+
+file <- read_feather("378_hOR_v21.feather")
+
 
 ##############################################################################################################################################################
 ##############################################################################################################################################################
@@ -110,7 +113,7 @@ ui <- navbarPage(title = ' ',
                       in order to facilitate the analysis and interpretation of the data (for more details visit the <strong>HELP</strong> panel).<br><br>
                       
                       <b><font size=3>➣ Content and Statistics:</font></b> <br>
-                      hORM Database contains <strong>374 human Olfactory Receptors protein sequences</strong> referenced from the <strong>UniProt 
+                      hORM Database contains <strong>378 human Olfactory Receptors protein sequences</strong> referenced from the <strong>UniProt 
                       database</strong> (<a target='_blank' rel='noopener noreferrer' href='https://www.uniprot.org/'>Click</a>) and <b>118.057 mutations</b> extracted from <b>gnomAD database</b> 
                       (<a target='_blank' rel='noopener noreferrer' href='http://gnomad.broadinstitute.org/'>Click</a>).<br><br>
                       
@@ -225,14 +228,7 @@ ui <- navbarPage(title = ' ',
                                     
                                     mainPanel(
                                       
-                                      HTML('
-                                      <html>
-                                         <body>
-                                           <img id="Wind-Rose plot of hORs mutations" src="molino_GPCR4.png" style="width:75%; max-width:1500px">
-                                           <br><br>
-                                        </body>')
-                                      
-                                      , width = 7
+                                      HTML('<img id="Wind-Rose plot of hORs mutations" src="molino_GPCR4.png" style="width:75%; max-width:1500px">'), width = 7
                                       
                                     ), #Main panel close
                                     position = ('right'), fluid = TRUE)#Sidebarlayout close
@@ -4633,16 +4629,200 @@ server <- function(input, output, session){ #input es el que obtens de la user i
   }
   ######################################################################################################################
   ######################################################################################################################
+  # #RECEPTORS
+  # plot_receptors1 <- function(file){
+  #   counts <- table(file$Gene)
+  #   counts <- as.data.frame(counts)
+  #   ymax <- max(counts$Freq)
+  #   counts1 <- counts[1:121,]
+  #   # counts2 <- counts[122:242,]
+  #   # counts3 <- counts[243:361,]
+  #   #Control dim(counts1)[1]+dim(counts2)[1]+dim(counts3)[1]
+  #   ball <- as.vector(counts1$Var1)
+  #   colors1 <- c()
+  #   for (val in ball) {
+  #     if(substr(val, 3, 3) == '1' & substr(val, 4, 4) != '0' & substr(val, 4, 4) != '1' & substr(val, 4, 4) != '2'
+  #        & substr(val, 4, 4) != '3' & substr(val, 4, 4) != '4'){colors1 <- c(colors1, '1')}
+  #     if(substr(val, 3, 3) == '5' & substr(val, 4, 4) != '1' & substr(val, 4, 4) != '2' 
+  #        & substr(val, 4, 4) != '6'){colors1 <- c(colors1, '1')}
+  #     if(substr(val, 3, 3) == '2') {colors1 <- c(colors1, '2')}
+  #     if(substr(val, 3, 3) == '3') {colors1 <- c(colors1, '3')}
+  #     if(substr(val, 3, 3) == '4') {colors1 <- c(colors1, '4')}
+  #     if(substr(val, 3, 3) == '6') {colors1 <- c(colors1, '6')}
+  #     if(substr(val, 3, 3) == '7') {colors1 <- c(colors1, '7')}
+  #     if(substr(val, 3, 3) == '8') {colors1 <- c(colors1, '8')}
+  #     if(substr(val, 3, 3) == '9') {colors1 <- c(colors1, '9')}
+  #     if(substr(val, 3, 4) == '10') {colors1 <- c(colors1, '10')}
+  #     if(substr(val, 3, 4) == '11') {colors1 <- c(colors1, '11')}
+  #     if(substr(val, 3, 4) == '12') {colors1 <- c(colors1, '12')}
+  #     if(substr(val, 3, 4) == '13') {colors1 <- c(colors1, '13')}
+  #     if(substr(val, 3, 4) == '14') {colors1 <- c(colors1, '14')}
+  #     if(substr(val, 3, 4) == '51') {colors1 <- c(colors1, '51')}
+  #     if(substr(val, 3, 4) == '52') {colors1 <- c(colors1, '52')}
+  #     if(substr(val, 3, 4) == '56') {colors1 <- c(colors1, '56')}}
+  #   color_vector <- c(rainbow(17))
+  #   color_palette <- c()
+  #   for (val in colors1) {
+  #     if(val == '1') {color_palette <- c(color_palette, color_vector[1])}
+  #     if(val == '2') {color_palette <- c(color_palette, color_vector[2])}
+  #     if(val == '3') {color_palette <- c(color_palette, color_vector[3])}
+  #     if(val == '4') {color_palette <- c(color_palette, color_vector[4])}
+  #     if(val == '5') {color_palette <- c(color_palette, color_vector[5])}
+  #     if(val == '6') {color_palette <- c(color_palette, color_vector[6])}
+  #     if(val == '7') {color_palette <- c(color_palette, color_vector[7])}
+  #     if(val == '8') {color_palette <- c(color_palette, color_vector[8])}
+  #     if(val == '9') {color_palette <- c(color_palette, color_vector[9])}
+  #     if(val == '10') {color_palette <- c(color_palette, color_vector[10])}
+  #     if(val == '11') {color_palette <- c(color_palette, color_vector[11])}
+  #     if(val == '12') {color_palette <- c(color_palette, color_vector[12])}
+  #     if(val == '13') {color_palette <- c(color_palette, color_vector[13])}
+  #     if(val == '14') {color_palette <- c(color_palette, color_vector[14])}
+  #     if(val == '51') {color_palette <- c(color_palette, color_vector[15])}
+  #     if(val == '52') {color_palette <- c(color_palette, color_vector[16])}
+  #     if(val == '56') {color_palette <- c(color_palette, color_vector[17])}}
+  #   p <- ggplot(data= counts1, aes(x= Var1, y=Freq)) +
+  #     ggtitle("Variants distribution within Olfactory Receptors") +
+  #     geom_bar(stat="identity", width=0.7, color = color_palette) +
+  #     geom_text(aes(label = Freq), vjust = 0.5, hjust = -0.2, size = 2.3, angle=90) +
+  #     theme(axis.text.x = element_text(angle = 90, hjust = 0.9, size = rel(0.8))) + 
+  #     theme(axis.title.x = element_text(angle = 0, hjust = 0.5, size = rel(1.2), face = "bold", color = "black")) +
+  #     theme(axis.title.y = element_text(angle = 90, hjust = 0.5, size = rel(1.2), face = "bold", color = "black")) +
+  #     theme(plot.title = element_text(size = rel(1.5), colour = "black", face = "bold", hjust = 0.5)) +
+  #     xlab("Olfactory Receptor") + ylab("Frequency") + ylim(c(0, ymax)) +
+  #     labs(title = "Mutations frequencies within hORs")
+  #   p}
+  # ######################################################################################################################
+  # plot_receptors2 <- function(file){
+  #   counts <- table(file$Gene)
+  #   counts <- as.data.frame(counts)
+  #   ymax <- max(counts$Freq)
+  #   # counts1 <- counts[1:121,]
+  #   counts2 <- counts[122:242,]
+  #   # counts3 <- counts[243:361,]
+  #   #Control dim(counts1)[1]+dim(counts2)[1]+dim(counts3)[1]
+  #   ball <- as.vector(counts2$Var1)
+  #   colors1 <- c()
+  #   for (val in ball) {
+  #     if(substr(val, 3, 3) == '1' & substr(val, 4, 4) != '0' & substr(val, 4, 4) != '1' & substr(val, 4, 4) != '2'
+  #        & substr(val, 4, 4) != '3' & substr(val, 4, 4) != '4'){colors1 <- c(colors1, '1')}
+  #     if(substr(val, 3, 3) == '5' & substr(val, 4, 4) != '1' & substr(val, 4, 4) != '2' 
+  #        & substr(val, 4, 4) != '6'){colors1 <- c(colors1, '1')}
+  #     if(substr(val, 3, 3) == '2') {colors1 <- c(colors1, '2')}
+  #     if(substr(val, 3, 3) == '3') {colors1 <- c(colors1, '3')}
+  #     if(substr(val, 3, 3) == '4') {colors1 <- c(colors1, '4')}
+  #     if(substr(val, 3, 3) == '6') {colors1 <- c(colors1, '6')}
+  #     if(substr(val, 3, 3) == '7') {colors1 <- c(colors1, '7')}
+  #     if(substr(val, 3, 3) == '8') {colors1 <- c(colors1, '8')}
+  #     if(substr(val, 3, 3) == '9') {colors1 <- c(colors1, '9')}
+  #     if(substr(val, 3, 4) == '10') {colors1 <- c(colors1, '10')}
+  #     if(substr(val, 3, 4) == '11') {colors1 <- c(colors1, '11')}
+  #     if(substr(val, 3, 4) == '12') {colors1 <- c(colors1, '12')}
+  #     if(substr(val, 3, 4) == '13') {colors1 <- c(colors1, '13')}
+  #     if(substr(val, 3, 4) == '14') {colors1 <- c(colors1, '14')}
+  #     if(substr(val, 3, 4) == '51') {colors1 <- c(colors1, '51')}
+  #     if(substr(val, 3, 4) == '52') {colors1 <- c(colors1, '52')}
+  #     if(substr(val, 3, 4) == '56') {colors1 <- c(colors1, '56')}}
+  #   #print(colors1)
+  #   color_vector <- c(rainbow(17))
+  #   color_palette <- c()
+  #   for (val in colors1) {
+  #     if(val == '1') {color_palette <- c(color_palette, color_vector[1])}
+  #     if(val == '2') {color_palette <- c(color_palette, color_vector[2])}
+  #     if(val == '3') {color_palette <- c(color_palette, color_vector[3])}
+  #     if(val == '4') {color_palette <- c(color_palette, color_vector[4])}
+  #     if(val == '5') {color_palette <- c(color_palette, color_vector[5])}
+  #     if(val == '6') {color_palette <- c(color_palette, color_vector[6])}
+  #     if(val == '7') {color_palette <- c(color_palette, color_vector[7])}
+  #     if(val == '8') {color_palette <- c(color_palette, color_vector[8])}
+  #     if(val == '9') {color_palette <- c(color_palette, color_vector[9])}
+  #     if(val == '10') {color_palette <- c(color_palette, color_vector[10])}
+  #     if(val == '11') {color_palette <- c(color_palette, color_vector[11])}
+  #     if(val == '12') {color_palette <- c(color_palette, color_vector[12])}
+  #     if(val == '13') {color_palette <- c(color_palette, color_vector[13])}
+  #     if(val == '14') {color_palette <- c(color_palette, color_vector[14])}
+  #     if(val == '51') {color_palette <- c(color_palette, color_vector[15])}
+  #     if(val == '52') {color_palette <- c(color_palette, color_vector[16])}
+  #     if(val == '56') {color_palette <- c(color_palette, color_vector[17])}}
+  #   p <- ggplot(data= counts2, aes(x= Var1, y=Freq)) + 
+  #     geom_bar(stat="identity", width=0.7, color = color_palette) + 
+  #     geom_text(aes(label = Freq), vjust = 0.5, hjust = -0.2, size = 2.3, angle=90) +
+  #     theme(axis.text.x = element_text(angle = 90, hjust = 0.9, size = rel(0.8))) + 
+  #     theme(axis.title.x = element_text(angle = 0, hjust = 0.5, size = rel(1.2), face = "bold", color = "black")) +
+  #     theme(axis.title.y = element_text(angle = 90, hjust = 0.5, size = rel(1.2), face = "bold", color = "black")) +
+  #     xlab("Olfactory Receptor") + ylab("Frequency") + ylim(c(0, ymax)) 
+  #   p}
+  # ######################################################################################################################
+  # plot_receptors3 <- function(file){
+  #   counts <- table(file$Gene)
+  #   counts <- as.data.frame(counts)
+  #   ymax <- max(counts$Freq)
+  #   # counts1 <- counts[1:121,]
+  #   # counts2 <- counts[122:242,]
+  #   counts3 <- counts[243:361,]
+  #   #Control dim(counts1)[1]+dim(counts2)[1]+dim(counts3)[1]
+  #   ball <- as.vector(counts3$Var1)
+  #   colors1 <- c()
+  #   for (val in ball) {
+  #     if(substr(val, 3, 3) == '1' & substr(val, 4, 4) != '0' & substr(val, 4, 4) != '1' & substr(val, 4, 4) != '2'
+  #        & substr(val, 4, 4) != '3' & substr(val, 4, 4) != '4'){colors1 <- c(colors1, '1')}
+  #     if(substr(val, 3, 3) == '5' & substr(val, 4, 4) != '1' & substr(val, 4, 4) != '2' 
+  #        & substr(val, 4, 4) != '6'){colors1 <- c(colors1, '1')}
+  #     if(substr(val, 3, 3) == '2') {colors1 <- c(colors1, '2')}
+  #     if(substr(val, 3, 3) == '3') {colors1 <- c(colors1, '3')}
+  #     if(substr(val, 3, 3) == '4') {colors1 <- c(colors1, '4')}
+  #     if(substr(val, 3, 3) == '6') {colors1 <- c(colors1, '6')}
+  #     if(substr(val, 3, 3) == '7') {colors1 <- c(colors1, '7')}
+  #     if(substr(val, 3, 3) == '8') {colors1 <- c(colors1, '8')}
+  #     if(substr(val, 3, 3) == '9') {colors1 <- c(colors1, '9')}
+  #     if(substr(val, 3, 4) == '10') {colors1 <- c(colors1, '10')}
+  #     if(substr(val, 3, 4) == '11') {colors1 <- c(colors1, '11')}
+  #     if(substr(val, 3, 4) == '12') {colors1 <- c(colors1, '12')}
+  #     if(substr(val, 3, 4) == '13') {colors1 <- c(colors1, '13')}
+  #     if(substr(val, 3, 4) == '14') {colors1 <- c(colors1, '14')}
+  #     if(substr(val, 3, 4) == '51') {colors1 <- c(colors1, '51')}
+  #     if(substr(val, 3, 4) == '52') {colors1 <- c(colors1, '52')}
+  #     if(substr(val, 3, 4) == '56') {colors1 <- c(colors1, '56')}
+  #   }
+  #   color_vector <- c(rainbow(17))
+  #   color_palette <- c()
+  #   for (val in colors1) {
+  #     if(val == '1') {color_palette <- c(color_palette, color_vector[1])}
+  #     if(val == '2') {color_palette <- c(color_palette, color_vector[2])}
+  #     if(val == '3') {color_palette <- c(color_palette, color_vector[3])}
+  #     if(val == '4') {color_palette <- c(color_palette, color_vector[4])}
+  #     if(val == '5') {color_palette <- c(color_palette, color_vector[5])}
+  #     if(val == '6') {color_palette <- c(color_palette, color_vector[6])}
+  #     if(val == '7') {color_palette <- c(color_palette, color_vector[7])}
+  #     if(val == '8') {color_palette <- c(color_palette, color_vector[8])}
+  #     if(val == '9') {color_palette <- c(color_palette, color_vector[9])}
+  #     if(val == '10') {color_palette <- c(color_palette, color_vector[10])}
+  #     if(val == '11') {color_palette <- c(color_palette, color_vector[11])}
+  #     if(val == '12') {color_palette <- c(color_palette, color_vector[12])}
+  #     if(val == '13') {color_palette <- c(color_palette, color_vector[13])}
+  #     if(val == '14') {color_palette <- c(color_palette, color_vector[14])}
+  #     if(val == '51') {color_palette <- c(color_palette, color_vector[15])}
+  #     if(val == '52') {color_palette <- c(color_palette, color_vector[16])}
+  #     if(val == '56') {color_palette <- c(color_palette, color_vector[17])}}
+  #   p <- ggplot(data= counts3, aes(x= Var1, y=Freq)) + 
+  #     geom_bar(stat="identity", width=0.7, color = color_palette) + 
+  #     geom_text(aes(label = Freq), vjust = 0.5, hjust = -0.2, size = 2.3, angle=90) +
+  #     theme(axis.text.x = element_text(angle = 90, hjust = 0.9, size = rel(0.8))) + 
+  #     theme(axis.title.x = element_text(angle = 0, hjust = 0.5, size = rel(1.2), face = "bold", color = "black")) +
+  #     theme(axis.title.y = element_text(angle = 90, hjust = 0.5, size = rel(1.2), face = "bold", color = "black")) +
+  #     xlab("Olfactory Receptor") + ylab("Frequency") + ylim(c(0, ymax)) 
+  #   p}
   #RECEPTORS
   plot_receptors1 <- function(file){
     counts <- table(file$Gene)
     counts <- as.data.frame(counts)
+    counts <- counts[order(counts$Var1),]
     ymax <- max(counts$Freq)
-    counts1 <- counts[1:121,]
-    # counts2 <- counts[122:242,]
-    # counts3 <- counts[243:361,]
+    counts1 <- counts[c(1:62, 375, 63:94, 376, 95:118, 377, 119:123),]
+    counts1$Var1 <- as.character(counts1$Var1)
+    # counts1$Treatment <- factor(counts1$Var1, levels=unique(counts1$Var1))
     #Control dim(counts1)[1]+dim(counts2)[1]+dim(counts3)[1]
     ball <- as.vector(counts1$Var1)
+    # print(ball)
     colors1 <- c()
     for (val in ball) {
       if(substr(val, 3, 3) == '1' & substr(val, 4, 4) != '0' & substr(val, 4, 4) != '1' & substr(val, 4, 4) != '2'
@@ -4664,6 +4844,7 @@ server <- function(input, output, session){ #input es el que obtens de la user i
       if(substr(val, 3, 4) == '51') {colors1 <- c(colors1, '51')}
       if(substr(val, 3, 4) == '52') {colors1 <- c(colors1, '52')}
       if(substr(val, 3, 4) == '56') {colors1 <- c(colors1, '56')}}
+    # print(colors1)
     color_vector <- c(rainbow(17))
     color_palette <- c()
     for (val in colors1) {
@@ -4684,6 +4865,7 @@ server <- function(input, output, session){ #input es el que obtens de la user i
       if(val == '51') {color_palette <- c(color_palette, color_vector[15])}
       if(val == '52') {color_palette <- c(color_palette, color_vector[16])}
       if(val == '56') {color_palette <- c(color_palette, color_vector[17])}}
+    # print(color_palette)
     p <- ggplot(data= counts1, aes(x= Var1, y=Freq)) +
       ggtitle("Variants distribution within Olfactory Receptors") +
       geom_bar(stat="identity", width=0.7, color = color_palette) +
@@ -4700,9 +4882,8 @@ server <- function(input, output, session){ #input es el que obtens de la user i
     counts <- table(file$Gene)
     counts <- as.data.frame(counts)
     ymax <- max(counts$Freq)
-    # counts1 <- counts[1:121,]
-    counts2 <- counts[122:242,]
-    # counts3 <- counts[243:361,]
+    counts2 <- counts[c(124:221, 378, 222:248),]
+    counts2$Var1 <- as.character(counts2$Var1)
     #Control dim(counts1)[1]+dim(counts2)[1]+dim(counts3)[1]
     ball <- as.vector(counts2$Var1)
     colors1 <- c()
@@ -4760,9 +4941,8 @@ server <- function(input, output, session){ #input es el que obtens de la user i
     counts <- table(file$Gene)
     counts <- as.data.frame(counts)
     ymax <- max(counts$Freq)
-    # counts1 <- counts[1:121,]
-    # counts2 <- counts[122:242,]
-    counts3 <- counts[243:361,]
+    counts3 <- counts[249:374,]
+    counts3$Var1 <- as.character(counts3$Var1)
     #Control dim(counts1)[1]+dim(counts2)[1]+dim(counts3)[1]
     ball <- as.vector(counts3$Var1)
     colors1 <- c()
@@ -5467,9 +5647,39 @@ server <- function(input, output, session){ #input es el que obtens de la user i
   ##############################################################################################################################################################
   ### TABLE
   #selecciona funcio render.. del paquet DT
+  # output$table <- DT::renderDataTable({ input$update
+  #   Sys.sleep(1)
+  #   isolate({my_table <- datatable(filtering(), options = list(scrollX = TRUE, autoWidth = FALSE, pageLength = 5, lengthMenu = c(5,10,20,50,100)))}) 
+  #   #quan es modifica el update torna a filtrar
+  #   return(my_table)})
   output$table <- DT::renderDataTable({ input$update
     Sys.sleep(1)
-    isolate({my_table <- datatable(filtering(), options = list(scrollX = TRUE, autoWidth = FALSE, pageLength = 5, lengthMenu = c(5,10,20,50,100)))}) 
+    
+    isolate({
+      table_filtered <- filtering()
+      #Add dynamism
+      add_link <- function(x){
+        y <- paste('<a href="https://www.ncbi.nlm.nih.gov/snp/', x, '"', ' target="_blank">', x, '</a>', sep = "")
+        return(y)
+      }
+      add_link_1 <- function(x){
+        y <- paste('<a href="https://www.uniprot.org/uniprot/', x, '"', ' target="_blank">', x, '</a>', sep = "")
+        return(y)
+      }
+      add_link_2 <- function(x){
+        y <- paste('<a href="https://gnomad.broadinstitute.org/gene/', x, '"', ' target="_blank">', x, '</a>', sep = "")
+        return(y)
+      }
+      add_link_3 <- function(x){
+        y <- paste('<a href="https://grch37.ensembl.org/Homo_sapiens/Gene/Summary?g=', x, '"', ' target="_blank">', x, '</a>', sep = "")
+        return(y)
+      }
+      table_filtered['rsID'] <- lapply(table_filtered['rsID'], add_link)
+      table_filtered['UniProt'] <- lapply(table_filtered['UniProt'], add_link_1)
+      table_filtered['Gene'] <- lapply(table_filtered['Gene'], add_link_2)
+      table_filtered['Ensmbl'] <- lapply(table_filtered['Ensmbl'], add_link_3)
+      
+      my_table <- datatable(table_filtered, options = list(scrollX = TRUE, autoWidth = FALSE, pageLength = 5, lengthMenu = c(5,10,20,50,100)), escape = FALSE)}) 
     #quan es modifica el update torna a filtrar
     return(my_table)})
   ##############################################################################################################################################################
@@ -5598,6 +5808,86 @@ server <- function(input, output, session){ #input es el que obtens de la user i
     isolate({my_plot <-  circos_plot(filtering())})
     return(my_plot)}, height = 600, width = 1000)
 }
+
+
+# # EXTRA CODE, DO NOT EXECUTE IT!!!!!!!!!!!!!!!!!
+# Generate the circular barplot!! not necessary to execute during the app execution
+# # Prepare data
+# setwd("C:/Users/Ramon/Desktop/hORVdb/hORMdb-master")
+# unzip("378_hOR_v21_23112020.zip")
+# library(feather)
+# file1 <- read_feather("378_hOR_v21_23112020.feather")
+# file2 <- read_feather("378_hOR_v21.feather")
+# t1 <- file1$Gene
+# t2 <- file2$Gene
+# table(class(t1) == class(t2))
+# 
+# 
+# receptors <- table(file$Gene)
+# receptors <- as.data.frame(receptors)
+# colnames(receptors) <- c('individual', 'value')
+# family <- c()
+# for (pos in receptors$individual){family <- c(family, unique(file$Family[file$Gene==pos]))}
+# receptors$family <- family
+# colnames(receptors) <- c('individual', 'value', 'group')
+# receptors <- receptors[c('individual', 'group', 'value')]
+# receptors$group <- as.factor(receptors$group)
+# # Add ORs count to OR referencename
+# new_OR_name <- c()
+# count <- 1
+# for (receptor in receptors$individual){if (identical(as.character(receptor), as.character(receptors[count,1])) == T){
+#     add <- paste('(', as.character(receptors[count,3]), sep='')
+#     add <- paste(add, ')', sep ='')
+#     new_OR_name <- c(new_OR_name, paste(as.character(receptors[count,1]), add, sep=' '))}
+#   count <- count + 1}
+# receptors$individual <- new_OR_name
+# # Create dataset
+# library(tidyverse)
+# data <- receptors
+# # Order data:
+# data = data %>% arrange(group, value)
+# # Set a number of 'empty bar' to add at the end of each group
+# empty_bar=1
+# to_add = data.frame( matrix(NA, empty_bar*nlevels(data$group), ncol(data)) )
+# colnames(to_add) = colnames(data)
+# to_add$group=rep(levels(data$group), each=empty_bar)
+# data=rbind(data, to_add)
+# data=data %>% arrange(group)
+# data$id=seq(1, nrow(data))
+# print(data) #tutto benne
+# # Get the name and the y position of each label
+# label_data=data
+# number_of_bar=nrow(label_data)
+# angle= 90 - 360 * (label_data$id-0.5) /number_of_bar  # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+# label_data$hjust<-ifelse( angle < -90, 1, 0)
+# label_data$angle<-ifelse(angle < -90, angle+180, angle)
+# # print(label_data) #tutto benne
+# # Make the plot
+# #pdf("receptors_families.pdf", width=35,height=40, bg = 'transparent')
+# 
+# colorines <- rainbow(length(unique(data$group)))
+# colorines_level <- setNames(colorines, levels(data$group))
+# 
+# p = ggplot(data, aes(x=as.factor(id), y=value, fill=group)) + # Note that id is a factor. If x is numeric, there is some space between the first bar
+#   geom_bar(stat="identity", alpha=0.5) +
+#   ylim(0,632) +
+#     theme(
+#     legend.position = "none",
+#     panel.background = element_rect(fill = "transparent"), # bg of the panel
+#     plot.background = element_rect(fill = "transparent", color = NA), # bg of the plot
+#     axis.text = element_blank(),
+#     axis.title = element_blank(),
+#     panel.grid = element_blank(),
+#     plot.margin = unit(rep(-50,40), "mm")) +
+#   coord_polar() +
+#   # geom_text(data=label_data, aes(x=id, y=value+3, label=individual, hjust=hjust),
+#   #           color="black", fontface="bold",alpha=0.6, size=1, angle= label_data$angle, inherit.aes = FALSE) +
+#   scale_fill_manual(values = colorines_level)
+# 
+# p
+# ggsave("molino_v2_no_labels.png", p, width = 230, height = 230, units = 'mm', dpi = 600, bg = "transparent")
+# dev.off()
+# After that, take the pdf and use the following link https://pdftoimage.com/
 ##############################################################################################################################################################
 ##############################################################################################################################################################
 ##############################################################################################################################################################
