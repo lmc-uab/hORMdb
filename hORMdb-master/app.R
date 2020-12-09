@@ -34,14 +34,14 @@ import_library('dplyr');
 import_library('feather')
 
 #Read file
-#if(file.exists("378_hOR_v21_23112020.feather") == FALSE){
-#  unzip("378_hOR_v21_23112020.zip")
-#}
-#if(file.exists("378_hOR_v21.feather") == TRUE){
-#  file <- read_feather("378_hOR_v21.feather")
-#}
+if(file.exists("378_hOR_v21.feather") == FALSE){
+ unzip("378_hOR_v21.zip")
+}
+if(file.exists("378_hOR_v21.feather") == TRUE){
+ file <- read_feather("378_hOR_v21.feather")
+}
 
-file <- read_feather("378_hOR_v21.feather")
+# file <- read_feather("378_hOR_v21.feather")
 
 
 ##############################################################################################################################################################
